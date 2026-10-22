@@ -1,0 +1,53 @@
+{
+  "name": "klein-memory",
+  "version": "0.1.0",
+  "description": "RecSys-Isomorphic Cognitive Memory Engine for DeepSeek Harness (DSH) — Multi-channel Retrieval, Multi-objective Ranking, and Knapsack Token Budgeting.",
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "memory",
+    "recsys",
+    "knapsack",
+    "agent-memory",
+    "knowledge-graph"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "benchmark": "node --import tsx tests/eval-benchmark.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,7 @@
+# klein-memory: RecSys-Isomorphic Memory Engine for DSH
+- id: klein-memory
+  name: klein-memory
+  config:
+    tokenBudget: 1500
+    minQueryLength: 2
+    autoInject: true

@@ -1,7 +1,7 @@
 import { ScoredMemory, SelectedMemory } from "../types.js";
 
 export interface KnapsackConfig {
-  abstractUtilityRatio?: number; // L1 摘要获得的效用比例，默认 0.65
+  abstractUtilityRatio?: number; // L1 摘要获得的效用比例，默认 0.35 (平衡高相关条目 Full 展开与长尾条目 Abstract 兜底)
   tokenBudget?: number;          // Token 预算硬上限，默认 1500
   tokenGranularity?: number;     // DP 步长粒度（用于大预算加速），默认 1
 }
@@ -11,11 +11,11 @@ export interface KnapsackConfig {
  * 在硬 Token 预算限制下，在 不选 / L1摘要 / L3全文 三者间求解全局效用最大的帕累托最优解
  */
 export class KnapsackBudgetSolver {
-  private abstractUtilityRatio: number;
+  public abstractUtilityRatio: number;
   private defaultBudget: number;
 
   constructor(config: KnapsackConfig = {}) {
-    this.abstractUtilityRatio = config.abstractUtilityRatio ?? 0.65;
+    this.abstractUtilityRatio = config.abstractUtilityRatio ?? 0.35;
     this.defaultBudget = config.tokenBudget ?? 1500;
   }
 

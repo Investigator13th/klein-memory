@@ -14,7 +14,23 @@ export class Tokenizer {
 
     for (const segment of segments) {
       if (segment.isWordLike) {
-        tokens.push(segment.segment);
+        const word = segment.segment;
+        tokens.push(word);
+
+        // 针对英文执行轻量词干归一化 (复数、ing/ed 去除，解决 podcast vs podcasts, film vs films 的词表鸿沟)
+        if (/^[a-z]+$/.test(word) && word.length > 3) {
+          if (word.endsWith("ies") && word.length > 4) {
+            tokens.push(word.slice(0, -3) + "y");
+          } else if (word.endsWith("es") && word.length > 4) {
+            tokens.push(word.slice(0, -2));
+          } else if (word.endsWith("s") && !word.endsWith("ss")) {
+            tokens.push(word.slice(0, -1));
+          } else if (word.endsWith("ing") && word.length > 5) {
+            tokens.push(word.slice(0, -3));
+          } else if (word.endsWith("ed") && word.length > 4) {
+            tokens.push(word.slice(0, -2));
+          }
+        }
       }
     }
 
